@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MimeTypes
+namespace MimeTypes.Core
 {
+    // ReSharper disable once UnusedMember.Global
     public static class MimeTypeMap
     {
-        private static readonly Lazy<IDictionary<string, string>> _mappings = new Lazy<IDictionary<string, string>>(BuildMappings);
+        private static readonly Lazy<IDictionary<string, string>> Mappings = new Lazy<IDictionary<string, string>>(BuildMappings);
 
         private static IDictionary<string, string> BuildMappings()
         {
@@ -702,11 +703,12 @@ namespace MimeTypes
             return mappings;
         }
 
-        public static string GetMimeType(string extension)
+        // ReSharper disable once UnusedMember.Global
+        public static string GetMimeType(string extension, string defaultValue = "application/octet-stream")
         {
             if (extension == null)
             {
-                throw new ArgumentNullException("extension");
+                throw new ArgumentNullException(nameof(extension));
             }
 
             if (!extension.StartsWith("."))
@@ -714,21 +716,14 @@ namespace MimeTypes
                 extension = "." + extension;
             }
 
-            string mime;
-
-            return _mappings.Value.TryGetValue(extension, out mime) ? mime : "application/octet-stream";
+            return Mappings.Value.TryGetValue(extension, out var mime) ? mime : defaultValue;
         }
 
-        public static string GetExtension(string mimeType)
-        {
-             return GetExtension(mimeType, true);
-        }
-        
-        public static string GetExtension(string mimeType, bool throwErrorIfNotFound)
+        public static bool TryGetExtension(string mimeType, out string extension)
         {
             if (mimeType == null)
             {
-                throw new ArgumentNullException("mimeType");
+                throw new ArgumentNullException(nameof(mimeType));
             }
 
             if (mimeType.StartsWith("."))
@@ -736,20 +731,27 @@ namespace MimeTypes
                 throw new ArgumentException("Requested mime type is not valid: " + mimeType);
             }
 
-            string extension;
+            return Mappings.Value.TryGetValue(mimeType, out extension);
+        }
+        
+        public static string GetExtension(string mimeType)
+        {
+            if (mimeType == null)
+            {
+                throw new ArgumentNullException(nameof(mimeType));
+            }
 
-            if (_mappings.Value.TryGetValue(mimeType, out extension))
+            if (mimeType.StartsWith("."))
+            {
+                throw new ArgumentException("Requested mime type is not valid: " + mimeType);
+            }
+
+            if (Mappings.Value.TryGetValue(mimeType, out var extension))
             {
                 return extension;
             }
-            if (throwErrorIfNotFound)
-            {
-                throw new ArgumentException("Requested mime type is not registered: " + mimeType);
-            }
-            else
-            {
-                return string.Empty;   
-            }
+            
+            throw new ArgumentException("Requested mime type is not registered: " + mimeType);
         }
     }
 }

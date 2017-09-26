@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <Authors>ArchitectNow</Authors>
+    <Company>ArchitectNow</Company>
+    <Product>MimeTypeMap.Core</Product>
+    <PackageId>MimeTypeMap.Core</PackageId>
+    <PackageProjectUrl>https://github.com/ArchitectNow/MimeTypeMap</PackageProjectUrl>
+    <PackageIconUrl>https://secure.gravatar.com/avatar/83fed82c32dc5424b4245cfc03d57b39?s=32&amp;r=g&amp;d=retro</PackageIconUrl>
+    <RepositoryUrl>https://github.com/ArchitectNow/MimeTypeMap</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <Copyright>Copyright © 2014-2017 ArchitectNow</Copyright>
+    <PackageLicenseUrl>https://github.com/ArchitectNow/MimeTypeMap/blob/master/LICENSE</PackageLicenseUrl>
+    <Description>Huge dictionary of file extensions to mime types</Description>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+  </PropertyGroup>
+</Project>
